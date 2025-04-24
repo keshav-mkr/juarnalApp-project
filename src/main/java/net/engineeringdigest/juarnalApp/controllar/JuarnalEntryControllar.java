@@ -1,6 +1,7 @@
 package net.engineeringdigest.juarnalApp.controllar;
 
 import net.engineeringdigest.juarnalApp.entity.JuarnalEntry;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -17,11 +18,14 @@ public class JuarnalEntryControllar {
 
     @PostMapping("/addEntities")
     public boolean crateEntity(@RequestBody JuarnalEntry myEntry){
+        System.out.println("local change");
         juarnalEntries.put(myEntry.getId(),myEntry);
         return true;
     }
 
     @GetMapping("entities")
+
+    @Scheduled(fixedRate = 5000)
     public List<JuarnalEntry> getJuarnalEntities(){
 
         return new ArrayList<>(juarnalEntries.values());
